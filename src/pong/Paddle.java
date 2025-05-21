@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 public class Paddle extends Rectangle {
     int id;
     int yVelocity;
+    private boolean pPressed = false;
     public static int speed = 10;  // changed to static so all paddles share speed
 
     public Paddle(int x, int y, int width, int height, int id) {
@@ -27,8 +28,9 @@ public class Paddle extends Rectangle {
         g.fillRect(x, y, width, height);
     }
     public void keyReleased(KeyEvent e) {
-         //if ((GameFrame.getIsPaused() == true))
-         //{
+        
+        if ((GameFrame.getIsPaused() == false))
+        {
                 switch (id) {
                     case 1:
                         if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_S) {
@@ -40,31 +42,39 @@ public class Paddle extends Rectangle {
                             setYDirection(0);
                         }
                         break;
-                //}
+                }
+
         }
     }
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_P){ // cant have it within case 1 cuz then it can't sense key P
-                if (GameFrame.getIsPaused()) {
-                    GameFrame.resume();
-                    //System.out.println("resumed");
+//         if (e.getKeyCode() == KeyEvent.VK_P){ // cant have it within case 1 cuz then it can't sense key P
+//             if (pPressed == false) {
+//                 pPressed = true;
+//                 if (GameFrame.getIsPaused()) {
+//                         GameFrame.resume();
+//                         System.out.println("resumed");
+//                     }
+//                     else {
+//                         GameFrame.pause();
+//                         System.out.println("paused");
+//                     }
+//             }   
+// ;          }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    //System.out.println("exit");
+                    GameFrame.instance.exit();
                 }
-                else {
-                    GameFrame.resume();
-                    //System.out.println("paused");
-                }
-;          }
         if ((GameFrame.getIsPaused() == false))
         {
             switch (id) {
             case 1: // Player 1: W/S
                 if (e.getKeyCode() == KeyEvent.VK_W) {
                     setYDirection(-speed);
-                    System.out.println("yes");
+                    //System.out.println("yes");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     setYDirection(speed);
-                    System.out.println("yes");
+                    //System.out.println("yes");
                 }
                 break;
             case 2: // Player 2: UP/DOWN
@@ -82,6 +92,18 @@ public class Paddle extends Rectangle {
             //         GameFrame.pause();
             //     }
              }   
+        }
+    }
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == 'p') {
+            //System.out.println("pressed");
+            if (GameFrame.getIsPaused()) {
+                GameFrame.resume();
+                //System.out.println("resumed");
+            } else {
+                GameFrame.pause();
+                //System.out.println("paused");
+            }
         }
     }
 }

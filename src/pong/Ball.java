@@ -32,8 +32,11 @@ public class Ball extends Rectangle {
     }
 
     public void move() {
-        x += xVelocity;
-        y += yVelocity;
+        if (GameFrame.getIsPaused() == false)
+        {
+            x += xVelocity;
+            y += yVelocity;
+        }
     }
     public void draw(Graphics g) {
         g.setColor(Color.white);

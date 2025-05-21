@@ -6,7 +6,6 @@ import java.util.*;
 import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable{
-
 	static final int GAME_WIDTH = 1000;
 	static final int GAME_HEIGHT = (int)(GAME_WIDTH * (0.5555));
 	static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH,GAME_HEIGHT);
@@ -57,15 +56,39 @@ public static void startgameThread() {
 
 	}
 	public void draw(Graphics g) {
+		
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		paddle1.draw(g);
 		paddle2.draw(g);
 		ball.draw(g);
 		score.draw(g);
+		// if(GameFrame.getIsPaused()){
+		// 	drawPauseOverlay(g);
+		// }
         Toolkit.getDefaultToolkit().sync(); // I forgot to add this line of code in the video, it helps with the animation
 
 	}
+
+	public void drawPauseOverlay(Graphics g) {
+    	Graphics2D g2d = (Graphics2D) g;
+
+    	// Semi-transparent blue overlay
+    	Color overlayColor = new Color(0, 0, 255, 100); // blue with alpha
+    	g2d.setColor(overlayColor);
+    	g2d.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+    // Paused text
+    	g2d.setColor(Color.WHITE);
+    	g2d.setFont(new Font("SansSerif", Font.BOLD, 64));
+    	String text = "Paused";
+    	FontMetrics fm = g2d.getFontMetrics();
+    	int x = (GAME_WIDTH - fm.stringWidth(text)) / 2;
+    	int y = (GAME_HEIGHT / 2) - (fm.getHeight() / 2) + fm.getAscent();
+    	g2d.drawString(text, x, y);
+}
+
+
 	public void move() {
 		paddle1.move();
 		paddle2.move();
@@ -135,8 +158,10 @@ public static void startgameThread() {
 			delta += (now -lastTime)/ns;
 			lastTime = now;
 			if(delta >=1) {
-				move();
-				checkCollision();
+				if(!GameFrame.getIsPaused()){
+					move();
+					checkCollision();
+				}
 				repaint();
 				delta--;
 			}
@@ -150,6 +175,9 @@ public static void startgameThread() {
 		public void keyReleased(KeyEvent e) {
 			paddle1.keyReleased(e);
 			paddle2.keyReleased(e);
+		}
+		public void keyTyped(KeyEvent e) {
+			paddle1.keyTyped(e);
 		}
 	}
 }

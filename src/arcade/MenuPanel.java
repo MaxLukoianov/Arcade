@@ -17,10 +17,16 @@ public class MenuPanel extends JPanel {
         pongButton.setBounds(400, 200, 200, 50);
         pongButton.addActionListener(e -> {
             frame.showScreen("pong");
-            GamePanel.startgameThread();
+            pong.GamePanel.startgameThread();
+        });
+        JButton chessButton = new JButton("Play Chess");
+        chessButton.setBounds(400, 300, 200, 50);
+        chessButton.addActionListener(e -> {
+            frame.showScreen("chess");
+            chess.ChessGame.launchChess();
         });
         this.add(pongButton);
-
+        this.add(chessButton);
         // Future: Add more buttons for Chess, Minesweeper, Settings, etc.
     }
 
@@ -33,5 +39,7 @@ public class MenuPanel extends JPanel {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 36));
         g.drawString("Welcome to the Arcade!", 300, 100);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("ESCAPE = Exit, P = Pause/Resume", 330, 550);
     }
 }
