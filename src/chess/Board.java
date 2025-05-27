@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class Board extends JPanel {
     
     public String fenStartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-    
+    public String fenTest = "1r6/4k3/4B1P1/6K1/8/p2n4/8/8 b - - 0 1";
     public int tileSize = 85;
 
     int cols = 8;
@@ -49,6 +49,7 @@ public class Board extends JPanel {
         this.addMouseMotionListener(input);
 
         loadPositionFromFEN(fenStartingPosition);
+        //loadPositionFromFEN(fenTest);
         repaint();
     }
 
@@ -201,32 +202,6 @@ public class Board extends JPanel {
 
 
     public void loadPositionFromFEN(String fenString){
-        //System.out.println("added");
-        // pieceList.add(new Rook(this, 0, 0, false));
-        // pieceList.add(new Knight(this, 1, 0, false));
-        // pieceList.add(new Bishop(this, 2, 0, false));
-        // pieceList.add(new Queen(this, 3, 0, false));
-        // pieceList.add(new King(this, 4, 0, false));
-        // pieceList.add(new Bishop(this, 5, 0, false));
-        // pieceList.add(new Knight(this, 6, 0, false));
-        // pieceList.add(new Rook(this, 7, 0, false));
-
-        // for (int i = 0; i < 8; i++) {
-        //     pieceList.add(new Pawn(this, i, 1, false));
-        // }
-        
-        // for (int i = 0; i < 8; i++) {
-        //     pieceList.add(new Pawn(this, i, 6, true));
-        // }
-
-        // pieceList.add(new Rook(this, 0, 7, true));
-        // pieceList.add(new Knight(this, 1, 7, true));
-        // pieceList.add(new Bishop(this, 2, 7, true));
-        // pieceList.add(new Queen(this, 3, 7, true));
-        // pieceList.add(new King(this, 4, 7, true));
-        // pieceList.add(new Bishop(this, 5, 7, true));
-        // pieceList.add(new Knight(this, 6, 7, true));
-        // pieceList.add(new Rook(this, 7, 7, true));
         pieceList.clear();
         String[] parts = fenString.split(" ");
         
