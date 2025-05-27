@@ -2,12 +2,13 @@ package pong;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 import arcade.Game;
 import javax.swing.JLayer;
 
 public class GameFrame extends JFrame {
     public static GameFrame instance;
-    private BlurLayerUI blurLayerUI;
+    private PongBlurLayerUI blurLayerUI;
     private JLayer<GamePanel> jlayer;
     private static boolean isPaused = false;
 
@@ -24,7 +25,7 @@ public class GameFrame extends JFrame {
      }
 
      public static void resume() {
-         isPaused = false;
+        isPaused = false;
         if (instance != null){
             instance.blurLayerUI.setPaused(false);
             instance.jlayer.repaint();
@@ -36,7 +37,7 @@ public class GameFrame extends JFrame {
         instance = this;
         panel = new GamePanel();
         
-        blurLayerUI = new BlurLayerUI();
+        blurLayerUI = new PongBlurLayerUI();
 
         jlayer = new JLayer<GamePanel>(panel, blurLayerUI);
         this.add(jlayer);

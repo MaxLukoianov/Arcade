@@ -1,9 +1,18 @@
 package pong;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
 	static final int GAME_WIDTH = 1000;

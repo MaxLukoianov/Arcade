@@ -1,7 +1,8 @@
 package pong;
 
 import arcade.GameSettings;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 public class PongSettings implements GameSettings {
     private int paddleSpeed = 10;

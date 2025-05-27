@@ -1,16 +1,21 @@
 package arcade;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import pong.GamePanel; 
 import pong.PongGame;
 import chess.ChessGame;
 
-import java.awt.*;
+import java.awt.CardLayout;
+
+import java.awt.Font;
+import java.io.File;
 
 public class ArcadeFrame extends JFrame {
 
     CardLayout cardLayout;
     JPanel mainPanel;
+    private static ChessGame chessGame;
 
     public ArcadeFrame() {
         this.setTitle("Java Arcade");
@@ -32,14 +37,18 @@ public class ArcadeFrame extends JFrame {
     }
     public void showScreen(String name) {
         Game pong = new PongGame();
-        Game chess = new ChessGame();
+        chessGame = new ChessGame();
          if (name.equals("pong")) {
              pong.start();
          }
         if (name.equals("chess")) {
-            chess.start();
-            System.out.println("chess started");
+            chessGame.start();
+            chess.ChessGame.launchChess(chessGame);
+            //System.out.println("chess started");
         }
-
     }
+    public static ChessGame getChessGame() {
+        return chessGame;
+    }
+
 }
