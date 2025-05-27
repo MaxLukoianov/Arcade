@@ -2,11 +2,13 @@ package arcade;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JSlider;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
+import java.awt.BorderLayout;
 
 import java.awt.Font;
 import java.io.File;
@@ -20,7 +22,6 @@ import pong.GamePanel;
 public class MenuPanel extends JPanel {
     private Font arcadeFontLarge;
     private Font arcadeFontSmall;
-
 
     public MenuPanel(ArcadeFrame frame) {
         this.setPreferredSize(new Dimension(1000, 555));
@@ -43,6 +44,7 @@ public class MenuPanel extends JPanel {
             frame.showScreen("pong");
             pong.GamePanel.startgameThread();
         });
+        this.add(pongButton, BorderLayout.CENTER);
         JButton chessButton = new JButton("Play Chess");
         chessButton.setBounds(400, 300, 200, 50);
         Font chessBaseFont = arcadeFontSmall.deriveFont(16f);

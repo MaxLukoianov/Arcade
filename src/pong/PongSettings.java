@@ -25,4 +25,13 @@ public class PongSettings implements GameSettings {
         paddleSize = 100;
         scoreLimit = 10;
     }
+    public int getPaddleSpeed() {
+        return paddleSpeed;
+    }
+    public int getPaddleSize() {
+        return paddleSize;
+    }
+    public int getScoreLimit() {
+        return scoreLimit;
+    }
 }

@@ -1,7 +1,11 @@
 package arcade;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+import javax.swing.JSlider;
 import pong.GamePanel; 
 import pong.PongGame;
 import chess.ChessGame;
@@ -10,6 +14,10 @@ import java.awt.CardLayout;
 
 import java.awt.Font;
 import java.io.File;
+
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class ArcadeFrame extends JFrame {
 
@@ -22,6 +30,7 @@ public class ArcadeFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
 
+
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
@@ -29,8 +38,8 @@ public class ArcadeFrame extends JFrame {
         mainPanel.add(new MenuPanel(this), "menu");
         mainPanel.add(new pong.GamePanel(), "pong");
         mainPanel.add(new chess.GamePanel(), "chess");
-
-        this.add(mainPanel);
+        
+        this.add(mainPanel, BorderLayout.CENTER);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);

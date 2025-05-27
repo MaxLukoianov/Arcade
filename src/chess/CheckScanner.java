@@ -20,7 +20,7 @@ public class CheckScanner {
         int kingCol = king.col;
         int kingRow = king.row;
         
-        if (board.selectedPiece != null && board.selectedPiece.name.equals("king")) {
+        if (board.selectedPiece != null && board.selectedPiece.name.equals("King")) {
             kingCol = move.newCol;
             kingRow = move.newRow;
         }
@@ -74,7 +74,7 @@ public class CheckScanner {
             }
             
             
-            Piece piece = board.getPiece(kingCol - (i*colVal), kingRow - (i*rowVal));
+            Piece piece = board.getPiece(kingCol + (i*colVal), kingRow + (i*rowVal)); //used to be - , -
             if (piece != null && piece != board.selectedPiece) {
                 if (!board.sameTeam(piece, king) && (piece.name.equals("Bishop") || piece.name.equals("Queen"))) {
                     return true;

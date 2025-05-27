@@ -22,6 +22,9 @@ public class Board extends JPanel {
     
     public String fenStartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     public String fenTest = "1r6/4k3/4B1P1/6K1/8/p2n4/8/8 b - - 0 1";
+=======
+    public String fenTest = "7r/8/2B5/5k2/8/3K4/8/8 w - - 0 1";
+>>>>>>> 8de1ea0e2df9f3007cf5af11a1b2c18b4d65c96d
     public int tileSize = 85;
 
     int cols = 8;
@@ -67,9 +70,36 @@ public class Board extends JPanel {
         
         if (move.piece.name.equals("Pawn")){
             movePawn(move);
+<<<<<<< HEAD
         } else if (move.piece.name.equals("King")){
             moveKing(move);
         }
+=======
+        } else {
+            enPassantTile = -1;
+        }
+        if (move.piece.name.equals("King")){
+            moveKing(move);
+        }
+        // Update halfmoveClock
+        if (move.piece.name.equals("Pawn") || move.capture != null) {
+            halfmoveClock = 0;
+        } else {
+            halfmoveClock++;
+        }
+
+        // Draw by 50-move rule
+        if (halfmoveClock >= 100) {
+            System.out.println("Draw by 50-move rule.");
+            isGameOver = true;
+        }
+
+        // Update fullmoveNumber (increment only after Black's move)
+        if (!isWhiteToMove) {
+            fullmoveNumber++;
+        }
+
+>>>>>>> 8de1ea0e2df9f3007cf5af11a1b2c18b4d65c96d
         move.piece.col = move.newCol;
         move.piece.row = move.newRow;
         move.piece.xPos = move.newCol * tileSize;
@@ -137,7 +167,11 @@ public class Board extends JPanel {
 
     private void promotePawn(Move move) {
         pieceList.add(new Queen(this, move.newCol, move.newRow, move.piece.isWhite));
+<<<<<<< HEAD
         capture(move.piece);
+=======
+        pieceList.remove(move.piece);
+>>>>>>> 8de1ea0e2df9f3007cf5af11a1b2c18b4d65c96d
     }
 
 
@@ -202,9 +236,18 @@ public class Board extends JPanel {
 
 
     public void loadPositionFromFEN(String fenString){
+<<<<<<< HEAD
         pieceList.clear();
         String[] parts = fenString.split(" ");
         
+=======
+        //System.out.println("added");
+        pieceList.clear();
+        String[] parts = fenString.split(" ");
+        if (parts.length != 6) {
+            throw new IllegalArgumentException("Invalid FEN string: must have 6 fields");
+        }
+>>>>>>> 8de1ea0e2df9f3007cf5af11a1b2c18b4d65c96d
         //set up pieces
         String position = parts[0];
         int row = 0;
@@ -270,6 +313,15 @@ public class Board extends JPanel {
         } else {
             enPassantTile = (7 - (parts[3].charAt(1) - '1')) * 8 + (parts[3].charAt(0) - 'a');
         }
+<<<<<<< HEAD
+=======
+
+        // halfmoveClock
+        halfmoveClock = Integer.parseInt(parts[4]);
+
+        // fullmoveNumber
+        fullmoveNumber = Integer.parseInt(parts[5]);
+>>>>>>> 8de1ea0e2df9f3007cf5af11a1b2c18b4d65c96d
     }
 
     private void updateGameState() {
