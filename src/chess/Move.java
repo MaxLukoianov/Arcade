@@ -1,6 +1,6 @@
-package Chess;
+package chess;
 
-import Chess.pieces.Piece;
+import chess.pieces.Piece;
 
 public class Move {
     int oldCol;

@@ -1,7 +1,9 @@
 package pong;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Rectangle;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.util.Random;
 
 import pong.GameFrame;
 

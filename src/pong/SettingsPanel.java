@@ -1,9 +1,11 @@
 package pong;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
+import java.awt.FlowLayout;
 
 public class SettingsPanel extends JFrame {
 

@@ -1,6 +1,8 @@
 package pong;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 

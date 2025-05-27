@@ -1,9 +1,9 @@
-package Chess;
+package chess;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import Chess.pieces.Piece;
+import chess.pieces.Piece;
 
 public class Input extends MouseAdapter {
     
