@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MineMain",
+            "request": "launch",
+            "mainClass": "minesweeper.MineMain",
+            "projectName": "Arcade_714c4fde"
+        },
+        {
+            "type": "java",
             "name": "ArcadeMain",
             "request": "launch",
             "mainClass": "arcade.ArcadeMain",
