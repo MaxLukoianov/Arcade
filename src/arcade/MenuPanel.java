@@ -44,7 +44,7 @@ public class MenuPanel extends JPanel {
             frame.showScreen("pong");
             pong.GamePanel.startgameThread();
         });
-        this.add(pongButton, BorderLayout.CENTER);
+        // this.add(pongButton, BorderLayout.CENTER); //don't need this
         JButton chessButton = new JButton("Play Chess");
         chessButton.setBounds(400, 300, 200, 50);
         Font chessBaseFont = arcadeFontSmall.deriveFont(16f);
@@ -56,7 +56,7 @@ public class MenuPanel extends JPanel {
         });
         this.add(pongButton);
         this.add(chessButton);
-        // Future: Add more buttons for Chess, Minesweeper, Settings, etc.
+        // Future: Add more buttons for Minesweeper, Settings, etc.
     }
 
 
