@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import pong.GamePanel;
 
 public class MenuPanel extends JPanel {
     private Font arcadeFontLarge;

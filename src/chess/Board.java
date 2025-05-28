@@ -1,5 +1,12 @@
 package chess;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import chess.pieces.Bishop;
@@ -22,6 +29,34 @@ public class Board extends JPanel {
     
     public String fenStartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     
+    //test FenStrings
+    //StaleMate(King vs King and pawn)
+    public String fenStaleMate = "7k/5K2/8/6P1/8/8/8/8 w - - 0 1";
+
+    //Threefold Repetition
+    public String fenThreefoldRepetition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+    //50-move rule
+    public String fenFiftyMoveRule = "8/8/8/8/8/8/8/8 w - - 100 101";
+
+    //Insufficient Material
+    public String fenInsufficientMaterial = "8/8/8/8/8/8/8/K1k5 w - - 0 1";
+
+    //Checkmate
+    public String fenCheckMate = "rnb1kbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 1 2";
+
+    //En Passant Possible
+    public String fenEnPassantPossible = "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 2";
+
+    //Castling Rights Testing
+    public String fenCastlingRights = "rnbq1bnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQ - 0 1";
+
+    //Promoted Pieces on Board
+    public String fenPromotedPieces = "4k3/1Q6/8/8/8/8/6q1/4K3 w - - 0 1";
+
+    //Dead Position
+    public String fenDeadPosition = "8/8/8/8/8/8/6b1/5Bk1 w - - 0 1";
+
     public int halfmoveClock;
     public int fullmoveNumber;
     public String fenTest = "7r/8/2B5/5k2/8/3K4/8/8 w - - 0 1";
@@ -52,7 +87,16 @@ public class Board extends JPanel {
         this.addMouseListener(input);
         this.addMouseMotionListener(input);
 
-        loadPositionFromFEN(fenStartingPosition);
+        loadPositionFromFEN(fenStartingPosition); 
+        //loadPositionFromFEN(fenStaleMate); //StaleMate(King vs King and pawn)
+        // loadPositionFromFEN(fenThreefoldRepetition); //Threefold Repetition
+        // loadPositionFromFEN(fenFiftyMoveRule); //50-move rule
+        // loadPositionFromFEN(fenInsufficientMaterial); //Insufficient Material
+        // loadPositionFromFEN(fenCheckMate); //Checkmate
+        // loadPositionFromFEN(fenEnPassantPossible); //En Passant Possible
+        // loadPositionFromFEN(fenCastlingRights); //Castling Rights Testing\
+        // loadPositionFromFEN(fenPromotedPieces); //Promoted Pieces on Board
+        // loadPositionFromFEN(fenDeadPosition); //Dead Position
         //loadPositionFromFEN(fenTest);
         repaint();
     }
@@ -68,7 +112,6 @@ public class Board extends JPanel {
 
 
     public void makeMove(Move move) {
-        
         if (move.piece.name.equals("Pawn")){
             movePawn(move);
         } else if (move.piece.name.equals("King")){
@@ -164,8 +207,54 @@ public class Board extends JPanel {
 
 
     private void promotePawn(Move move) {
-        pieceList.add(new Queen(this, move.newCol, move.newRow, move.piece.isWhite));
+        // Create a dialog box to ask the player which piece to promote to
+        String[] options = {"Queen", "Rook", "Bishop", "Knight"};
+
+        JOptionPane optionPane = new JOptionPane(
+            "Choose a piece to promote to:",
+            JOptionPane.QUESTION_MESSAGE,
+            JOptionPane.DEFAULT_OPTION,
+            null,
+            options,
+            options[0]
+        );
+
+        JDialog dialog = optionPane.createDialog(this, "Promotion");
+
+        // Disable the close button (X)
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.setVisible(true);
+
+        // Get the selected value after dialog is closed
+        Object selectedValue = optionPane.getValue();
+
+        if (selectedValue == null) {
+            System.out.println("No piece was selected.");
+            return;
+        }
+
+        String choice = selectedValue.toString();  // Convert to string safely
+
+        Piece promotedPiece = null;
+
+        if (choice.equals("Queen")) {
+            promotedPiece = new Queen(this, move.newCol, move.newRow, move.piece.isWhite);
+        } else if (choice.equals("Rook")) {
+            promotedPiece = new Rook(this, move.newCol, move.newRow, move.piece.isWhite);
+        } else if (choice.equals("Bishop")) {
+            promotedPiece = new Bishop(this, move.newCol, move.newRow, move.piece.isWhite);
+        } else if (choice.equals("Knight")) {
+            promotedPiece = new Knight(this, move.newCol, move.newRow, move.piece.isWhite);
+        } else {
+            System.out.println("Unrecognized promotion choice: " + choice);
+            return;
+        }
+
+        // Replace pawn with promoted piece
         pieceList.remove(move.piece);
+        pieceList.add(promotedPiece);
+
+        repaint(); // Optional: if your board needs to be redrawn
     }
 
 
@@ -310,6 +399,8 @@ public class Board extends JPanel {
 
         // fullmoveNumber
         fullmoveNumber = Integer.parseInt(parts[5]);
+
+        
     }
 
     private void updateGameState() {
