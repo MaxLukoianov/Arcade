@@ -9,6 +9,13 @@
             "name": "ArcadeMain",
             "request": "launch",
             "mainClass": "arcade.ArcadeMain",
+            "projectName": "Arcade_714c4fde"
+        },
+        {
+            "type": "java",
+            "name": "ArcadeMain",
+            "request": "launch",
+            "mainClass": "arcade.ArcadeMain",
             "projectName": "Arcade_4d927370"
         },
         {
