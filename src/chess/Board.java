@@ -21,7 +21,11 @@ import java.util.stream.Collectors;
 public class Board extends JPanel {
     
     public String fenStartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    
+    public int halfmoveClock;
+    public int fullmoveNumber;
     public String fenTest = "7r/8/2B5/5k2/8/3K4/8/8 w - - 0 1";
+
     public int tileSize = 85;
 
     int cols = 8;
@@ -42,9 +46,6 @@ public class Board extends JPanel {
 
     private boolean isWhiteToMove = true;
     private boolean isGameOver = false;
-
-    private int halfmoveClock = 0;
-    private int fullmoveNumber = 1;
 
     public Board() {
         this.setPreferredSize(new Dimension(tileSize * cols, tileSize * rows));
@@ -70,6 +71,8 @@ public class Board extends JPanel {
         
         if (move.piece.name.equals("Pawn")){
             movePawn(move);
+        } else if (move.piece.name.equals("King")){
+            moveKing(move);
         } else {
             enPassantTile = -1;
         }
@@ -93,6 +96,7 @@ public class Board extends JPanel {
         if (!isWhiteToMove) {
             fullmoveNumber++;
         }
+
 
         move.piece.col = move.newCol;
         move.piece.row = move.newRow;
@@ -226,12 +230,14 @@ public class Board extends JPanel {
 
 
     public void loadPositionFromFEN(String fenString){
+
         //System.out.println("added");
         pieceList.clear();
         String[] parts = fenString.split(" ");
         if (parts.length != 6) {
             throw new IllegalArgumentException("Invalid FEN string: must have 6 fields");
         }
+
         //set up pieces
         String position = parts[0];
         int row = 0;
@@ -297,6 +303,7 @@ public class Board extends JPanel {
         } else {
             enPassantTile = (7 - (parts[3].charAt(1) - '1')) * 8 + (parts[3].charAt(0) - 'a');
         }
+
 
         // halfmoveClock
         halfmoveClock = Integer.parseInt(parts[4]);
