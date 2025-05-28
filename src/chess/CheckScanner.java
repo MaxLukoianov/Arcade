@@ -124,7 +124,7 @@ public class CheckScanner {
 
 
     private boolean hitByPawn(int col, int row, Piece king, int kingCol, int kingRow) {
-        int colorVal = king.isWhite ? 1 : -1;
+        int colorVal = king.isWhite ? -1 : 1;
         return checkPawn(board.getPiece(kingCol + 1, kingRow + colorVal), king, col, row) ||
                checkPawn(board.getPiece(kingCol - 1, kingRow + colorVal), king, col, row);
     }
