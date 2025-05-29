@@ -31,7 +31,7 @@ public class Board extends JPanel {
     
     //test FenStrings
     //StaleMate(King vs King and pawn)
-    public String fenStaleMate = "7k/5K2/8/6P1/8/8/8/8 w - - 0 1";
+    public String fenStaleMate = "7k/5K2/6P1/8/8/8/8 b - - 0 1";
 
     //Threefold Repetition
     public String fenThreefoldRepetition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -87,17 +87,18 @@ public class Board extends JPanel {
         this.addMouseListener(input);
         this.addMouseMotionListener(input);
 
-        loadPositionFromFEN(fenStartingPosition); 
+        //loadPositionFromFEN(fenStartingPosition); 
         //loadPositionFromFEN(fenStaleMate); //StaleMate(King vs King and pawn)
-        // loadPositionFromFEN(fenThreefoldRepetition); //Threefold Repetition
+        loadPositionFromFEN(fenThreefoldRepetition); //Threefold Repetition
         // loadPositionFromFEN(fenFiftyMoveRule); //50-move rule
         // loadPositionFromFEN(fenInsufficientMaterial); //Insufficient Material
         // loadPositionFromFEN(fenCheckMate); //Checkmate
         // loadPositionFromFEN(fenEnPassantPossible); //En Passant Possible
-        // loadPositionFromFEN(fenCastlingRights); //Castling Rights Testing\
+        // loadPositionFromFEN(fenCastlingRights); //Castling Rights Testing
         // loadPositionFromFEN(fenPromotedPieces); //Promoted Pieces on Board
         // loadPositionFromFEN(fenDeadPosition); //Dead Position
         //loadPositionFromFEN(fenTest);
+        updateGameState();
         repaint();
     }
 
