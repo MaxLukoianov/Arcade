@@ -12,7 +12,7 @@ public class Ball extends Rectangle {
     Random random;
     int xVelocity;
     int yVelocity;
-    int initialSpeed = 2;
+    int initialSpeed = 10; // change later (rn for testing)
 
     public Ball(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -22,6 +22,7 @@ public class Ball extends Rectangle {
         int randomY = random.nextInt(2) == 0 ? -1 : 1;
 
         setXDirection(randomX * initialSpeed);
+
         setYDirection(randomY * initialSpeed);
     }
 
@@ -43,5 +44,9 @@ public class Ball extends Rectangle {
     public void draw(Graphics g) {
         g.setColor(Color.white);
         g.fillOval(x, y, height, width);
+    }
+    public void resetBallSpeed() {
+        xVelocity = initialSpeed;
+        yVelocity = initialSpeed;
     }
 }

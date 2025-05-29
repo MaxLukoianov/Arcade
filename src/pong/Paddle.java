@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import arcade.Game;
+
 
 public class Paddle extends Rectangle {
     int id;
@@ -64,8 +66,11 @@ public class Paddle extends Rectangle {
 // ;          }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     //System.out.println("exit");
-                    GameFrame.instance.exit();
-                }
+                    GameFrame.instance.flipHasOpened();
+                    GameFrame.instance.stop();
+                    GameFrame.instance.dispose();
+                    
+        }
         if ((GameFrame.getIsPaused() == false))
         {
             switch (id) {

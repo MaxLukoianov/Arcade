@@ -9,6 +9,7 @@ import javax.swing.JSlider;
 import pong.GamePanel; 
 import pong.PongGame;
 import chess.ChessGame;
+import minesweeper.Minesweeper;
 
 import java.awt.CardLayout;
 
@@ -24,8 +25,13 @@ public class ArcadeFrame extends JFrame {
     CardLayout cardLayout;
     JPanel mainPanel;
     private static ChessGame chessGame;
+    Game pong;
+    Minesweeper minesweeper;
 
     public ArcadeFrame() {
+        pong = new PongGame();
+        chessGame = new ChessGame();
+
         this.setTitle("Java Arcade");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -45,19 +51,21 @@ public class ArcadeFrame extends JFrame {
         this.setVisible(true);
     }
     public void showScreen(String name) {
-        Game pong = new PongGame();
-        chessGame = new ChessGame();
+        // pong = new PongGame();
+        // chessGame = new ChessGame();
          if (name.equals("pong")) {
-             pong.start();
+            pong.start();
          }
         if (name.equals("chess")) {
-            chessGame.start();
             chess.ChessGame.launchChess(chessGame);
             //System.out.println("chess started");
         }
+        if (name.equals("minesweeper")) {
+            minesweeper = new Minesweeper();
+        }
+
     }
     public static ChessGame getChessGame() {
         return chessGame;
     }
-
 }

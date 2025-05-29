@@ -35,7 +35,7 @@ public class Minesweeper {
     int tilesClicked = 0; //goal is to click all tiles except the ones containing mines
     boolean gameOver = false;
 
-    Minesweeper() {
+    public Minesweeper() {
         // frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
         frame.setLocationRelativeTo(null);

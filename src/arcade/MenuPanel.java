@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import pong.GamePanel;
 
 public class MenuPanel extends JPanel {
     private Font arcadeFontLarge;
@@ -34,28 +35,34 @@ public class MenuPanel extends JPanel {
         }
         
         JButton pongButton = new JButton("Play Pong");
-        pongButton.setBounds(400, 200, 200, 50);
-        Font pongBaseFont = arcadeFontSmall.deriveFont(16f);
-        Font pongHoverFont = arcadeFontSmall.deriveFont(18f);
+        pongButton.setBounds(375, 200, 250, 50);
+        Font BaseFont = arcadeFontSmall.deriveFont(15f);
+        Font HoverFont = arcadeFontSmall.deriveFont(18f);
 
-        addHoverEffect(pongButton, 200, 50, 220, 60, pongBaseFont, pongHoverFont);
+        addHoverEffect(pongButton, 250, 50, 270, 60, BaseFont, HoverFont);
         pongButton.addActionListener(e -> {
             frame.showScreen("pong");
             pong.GamePanel.startgameThread();
         });
-        // this.add(pongButton, BorderLayout.CENTER); //don't need this
         JButton chessButton = new JButton("Play Chess");
-        chessButton.setBounds(400, 300, 200, 50);
-        Font chessBaseFont = arcadeFontSmall.deriveFont(16f);
-        Font chessHoverFont = arcadeFontSmall.deriveFont(18f);
+        chessButton.setBounds(375, 300, 250, 50);
 
-    addHoverEffect(chessButton, 200, 50, 220, 60, chessBaseFont, chessHoverFont);
+    addHoverEffect(chessButton, 250, 50, 270, 60, BaseFont, HoverFont);
         chessButton.addActionListener(e -> {
             frame.showScreen("chess");
         });
+
+        JButton minesweeperButton = new JButton("Play Minesweeper");
+        minesweeperButton.setBounds(375, 400, 250, 50);
+addHoverEffect(minesweeperButton, 250, 50, 300, 60, BaseFont, HoverFont);
+        minesweeperButton.addActionListener(e -> {
+            frame.showScreen("minesweeper");
+        });
+
         this.add(pongButton);
         this.add(chessButton);
-        // Future: Add more buttons for Minesweeper, Settings, etc.
+        this.add(minesweeperButton);
+        
     }
 
 

@@ -1,18 +1,21 @@
 package pong;
 
 import arcade.Game;
+import pong.GameFrame;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import pong.Ball;
+import pong.Score;
+import pong.Paddle;
+
+
 
 public class PongGame extends Game {
 
     GameFrame frame;
-
-    @Override
     public void start() {
-        frame = new GameFrame();
+        if (GameFrame.returnHasOpened()) {
+            frame = new GameFrame();
+        }
     }
-
-    //@Override
-    //public JPanel getSettingsPanel() {
-    //    return new PongSettings().getPanel(); // Optional settings
-    //}
 }

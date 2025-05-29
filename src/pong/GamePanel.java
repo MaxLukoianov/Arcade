@@ -39,12 +39,16 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setPreferredSize(SCREEN_SIZE);
 		
 		gameThread = new Thread(this);
+
         
 	}
 	
-public static void startgameThread() {
-    gameThread.start();
-}
+	public static void startgameThread() {
+		gameThread.start();
+	}
+	public void stopGameThread() {
+    	gameThread.interrupt();
+	}
 
 
 	public void newBall() {
@@ -162,7 +166,7 @@ public static void startgameThread() {
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
-		while(true) {
+		while(GameFrame.instance.getIsRunning()) {
 			long now = System.nanoTime();
 			delta += (now -lastTime)/ns;
 			lastTime = now;
@@ -187,6 +191,14 @@ public static void startgameThread() {
 		}
 		public void keyTyped(KeyEvent e) {
 			paddle1.keyTyped(e);
+
 		}
+	}
+	public Ball getBall() {
+    	return ball;
+	}
+
+	public Score getScore() {
+    	return score;
 	}
 }
