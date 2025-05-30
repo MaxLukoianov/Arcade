@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import chess.pieces.Bishop;
 import chess.pieces.King;
@@ -18,15 +19,24 @@ import chess.pieces.Queen;
 import chess.pieces.Rook;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import java.awt.FontMetrics;
 
 public class Board extends JPanel {
     
+    private String message = "";
+
+    private Font arcadeFontLarge;
+
     public String fenStartingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     
     //test FenStrings
@@ -40,10 +50,10 @@ public class Board extends JPanel {
     public String fenFiftyMoveRule = "8/8/8/8/8/8/8/8 w - - 100 101";
 
     //Insufficient Material
-    public String fenInsufficientMaterial = "8/8/8/8/8/8/8/K1k5 w - - 0 1";
+    public String fenInsufficientMaterial = "8/4K3/8/8/8/2k5/8/8 w - - 0 1";
 
     //Checkmate
-    public String fenCheckMate = "rnb1kbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 1 2";
+    public String fenCheckMate = "r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 1";
 
     //En Passant Possible
     public String fenEnPassantPossible = "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 2";
@@ -86,13 +96,18 @@ public class Board extends JPanel {
         this.setPreferredSize(new Dimension(tileSize * cols, tileSize * rows));
         this.addMouseListener(input);
         this.addMouseMotionListener(input);
-
+        try {
+            arcadeFontLarge = Font.createFont(Font.TRUETYPE_FONT, new File("src/arcade/resources/fonts/ARCADE_N.ttf")).deriveFont(30f);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+		this.setLayout(null); // allow absolute positioning
         //loadPositionFromFEN(fenStartingPosition); 
         //loadPositionFromFEN(fenStaleMate); //StaleMate(King vs King and pawn)
-        loadPositionFromFEN(fenThreefoldRepetition); //Threefold Repetition
+        //loadPositionFromFEN(fenThreefoldRepetition); //Threefold Repetition
         // loadPositionFromFEN(fenFiftyMoveRule); //50-move rule
-        // loadPositionFromFEN(fenInsufficientMaterial); //Insufficient Material
-        // loadPositionFromFEN(fenCheckMate); //Checkmate
+        loadPositionFromFEN(fenInsufficientMaterial); //Insufficient Material
+        //loadPositionFromFEN(fenCheckMate); //Checkmate
         // loadPositionFromFEN(fenEnPassantPossible); //En Passant Possible
         // loadPositionFromFEN(fenCastlingRights); //Castling Rights Testing
         // loadPositionFromFEN(fenPromotedPieces); //Promoted Pieces on Board
@@ -403,19 +418,23 @@ public class Board extends JPanel {
 
         
     }
+    public void showEndGameMessage(String message) {
+        this.message = message;
+		repaint();
+	}
 
     private void updateGameState() {
         Piece king = findKing(isWhiteToMove);
 
         if (checkScanner.isGameOver(king)){
             if (checkScanner.isKingChecked(new Move(this, king, king.col, king.row))) {
-                System.out.println(isWhiteToMove ? "Black wins!" : "White wins!");
+                showEndGameMessage(isWhiteToMove ? "Black wins!" : "White wins!");
             } else {
-                System.out.println("Stalemate!");
+                showEndGameMessage("Stalemate!");
             }
             isGameOver = true;
         } else if (insufficientMaterial(true) && insufficientMaterial(false)){
-            System.out.println("Stalemate! Insufficient material.");
+            showEndGameMessage("Stalemate!");
             isGameOver = true;
         }
     }
@@ -428,9 +447,10 @@ public class Board extends JPanel {
         return names.size() < 3;
     }
 
+    
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        
         //paint board
         for (int r = 0; r<rows; r++) {
             for (int c = 0; c<cols; c++) {
@@ -467,6 +487,26 @@ public class Board extends JPanel {
             selectedPiece.paint(g2d);
         }
 
+
+        if (isGameOver) {
+            g2d.setFont(arcadeFontLarge);
+            g2d.setColor(new Color(0, 0, 0, 220)); // semi-transparent black background
+            FontMetrics metrics = g2d.getFontMetrics();
+            
+
+            int textWidth = g2d.getFontMetrics().stringWidth(message);
+            int textHeight = g2d.getFontMetrics().getHeight();
+
+            int x = (getWidth() - textWidth) / 2;
+            int y = (getHeight() - textHeight) / 2;
+            
+            // Draw background rectangle
+            g2d.fillRect(x - 10, y - textHeight + 5, textWidth + 20, textHeight + 10);
+
+            // Draw the text in white
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(message, x, y + metrics.getAscent() - 20);
+        }
 
     }
 
